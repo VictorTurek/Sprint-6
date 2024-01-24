@@ -6,7 +6,7 @@
         </div>
         <div class="price-checkbox">
             <div class="card-price">
-                <p>{{ data.price }}</p>
+                <p>{{ data.price }}€</p>
             </div>
         </div>
         <div class="card-checkbox">
@@ -19,24 +19,20 @@
     <div *ngIf="showOptions" class="options-box">
         <div class="pages options-info">
             Quantitat de pagines:
-
             <div class="input-buttons">
-                <button class="buttons" (click)="decrementLanguage()">-</button>
-                <input type="number" class="input-number" [(ngModel)]="pageNumber" />
-                <button class="buttons" (click)="incrementLanguage()">+</button>
+                <button class="buttons" (click)="decrementPage()">-</button>
+                <input type="number" class="input-number" [(ngModel)]="pagesNumber" />
+                <button class="buttons" (click)="incrementPage()">+</button>
             </div>
 
         </div>
         <div class="languages options-info">
-                Quantitat de idiomes:
-                <!-- <input type="number" class="input-number" [(ngModel)]="languageNumber" /> -->
-                <div class="input-buttons">
-                    <button class="buttons" (click)="decrementLanguage()">-</button>
-                    <input type="number" class="input-number" [(ngModel)]="languageNumber" />
-                    <button class="buttons" (click)="incrementLanguage()">+</button>
-                </div>
-            
+            Quantitat de idiomes:
+            <div class="input-buttons">
+                <button class="buttons" (click)="decrementLanguage()">-</button>
+                <input type="number" class="input-number" [(ngModel)]="languageNumber" />
+                <button class="buttons" (click)="incrementLanguage()">+</button>
+            </div>
         </div>
     </div>
-
 </div>

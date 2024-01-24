@@ -4,5 +4,8 @@
 <div class="cards-container">
     <app-product-options *ngFor="let item of objects" [data]="item"/>
 </div>
+<div class="totalBudget">
+    Preu Pressupostat: {{totalBudget}}
+</div>
 
 <app-current-budgets />
