@@ -1,9 +1,8 @@
-<app-header/>
+<app-header />
 <!-- llamo al header: -->
 
+<div class="cards-container">
+    <app-product-options *ngFor="let item of objects" [data]="item"/>
+</div>
 
-<app-product-options/>
-
-<app-current-budgets/>
-
-
+<app-current-budgets />

@@ -1,2 +1,29 @@
-<p>product-options works!</p>
-<p>Aqui van las distintas opciones de producto.</p>
+<div class="card">
+    <div class="card-info">
+        <h3>{{ data.title }}</h3>
+        <p>{{ data.description }}</p>
+    </div>
+    <div class="price-checkbox">
+        <div class="card-price">
+            <p>{{ data.price }}</p>
+        </div>
+        <div class="card-checkbox">
+            <label>
+                <input type="checkbox" [(ngModel)]="showOptions" (change)="toggleOptions()" />
+                Afegir
+            </label>
+
+            <div *ngIf="showOptions">
+                <label>
+                    Nombre de páginas:
+                    <input type="number" [(ngModel)]="pageNumber" />
+                </label>
+                <label>
+                    Nombre de lenguajes:
+                    <input type="number" [(ngModel)]="languageNumber" />
+                </label>
+            </div>
+
+        </div>
+    </div>
+</div>
