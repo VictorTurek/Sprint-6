@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { HomeComponent } from '../../pages/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-product-options',
@@ -21,5 +23,18 @@ export class ProductOptionsComponent {
     // Toggle the visibility of options when the checkbox is clicked
     this.showOptions = !this.showOptions;
   }
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  decrementLanguage() {
+      this.languageNumber--;
+      this.cdr.detectChanges(); // Actualiza la vista después de cambiar el número
+  }
+
+  incrementLanguage() {
+      this.languageNumber++;
+      this.cdr.detectChanges(); // Actualiza la vista después de cambiar el número
+  }
+
 
 }

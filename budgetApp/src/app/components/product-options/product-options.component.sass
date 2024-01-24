@@ -1,17 +1,22 @@
 .card
     display: flex
     flex-wrap: wrap
-    width: 100%
     border: 1px solid #ccc
     border-radius: 10px
     box-shadow: 5px 5px 10px 5px rgba(179, 179, 179, 0.5)
     padding: 10px
     margin: 10px
-    align-items: center
+    flex-direction: column
+
+    .card-services
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+        padding: 10px
+        margin: 10px
 
     .card-info
-        margin-left: 10px
-        width: 270px
+        width: 250px
 
     .price-checkbox
         display: flex
@@ -20,10 +25,59 @@
         .card-price
             display: flex
             justify-content: center
-            width: 150px
+            width: 200px
             font-size: 1.7rem
             font-weight: bold
 
-        .card-checkbox
+    .card-checkbox
+        display: flex
+        //margin-left: 50px
+
+    .options-box
+        display: flex
+        flex-wrap: wrap
+        flex-direction: column
+        padding: 10px
+        align-content: end
+
+        .options-info
             display: flex
-            margin-left: 50px
+            align-items: center
+
+        .pages
+            margin-bottom: 20px
+
+    .input-buttons
+        display: flex
+        align-items: center
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button
+            -webkit-appearance: none
+
+        .input-number
+            border: 2px solid #ccc
+            border-radius: 5px
+            padding: 5px
+            width: 30px
+            height: 20px
+            display: flex
+            align-items: center
+            justify-content: space-between
+            text-align: center
+
+        .buttons
+            background-color: #fafafa
+            border: 1px solid #ccc
+            border-radius: 50%
+            cursor: pointer
+            padding: 5px
+            width: 20px
+            height: 20px
+            display: flex
+            align-items: center
+            justify-content: center
+            margin: 5px
+
+            &:hover
+                background-color: #dcdcdc
