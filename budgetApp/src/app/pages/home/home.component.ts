@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { ProductOptionsComponent } from '../../components/product-options/product-options.component';
 import { CurrentBudgetsComponent } from '../../components/current-budgets/current-budgets.component';
 import { CommonModule } from '@angular/common';
 import { BudgetService } from '../../services/budget.service';
+import { ServicesOfferedService } from '../../services/services-offered.service';
+import { serviceType } from '../../types/serviceType';
+
+
 
 @Component({
   selector: 'app-home',
@@ -12,20 +16,16 @@ import { BudgetService } from '../../services/budget.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass'
 })
-export class HomeComponent {
-
-  
-  objects = [
-    { title: 'SEO', description: "Analisis SEO d'una pagina web", price: 300 },
-    { title: 'Ads', description: "Creacio d'una campanya de publicitat", price: 400 },
-    { title: 'Web', description: "Programacio d'una web responsive", price: 500 },
-  ];
+export class HomeComponent implements OnInit{
 
   totalBudget: number = 0;
+  objects: serviceType[] = [];
 
-  constructor(private budgetService: BudgetService) {}
+  constructor(private budgetService: BudgetService, private servicesOfferedService: ServicesOfferedService) {}
 
   ngOnInit(): void {
+    this.objects = this.servicesOfferedService.objects;
+
     this.budgetService.getTotalBudget().subscribe((newTotalBudget) => {
       this.totalBudget = newTotalBudget;
     });

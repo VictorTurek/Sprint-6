@@ -11,14 +11,14 @@
         </div>
         <div class="card-checkbox">
             <label>
-                <input type="checkbox" [(ngModel)]="showOptions" ((click))="toggleOptions()" />
+                <input id="checkbox" type="checkbox" [(ngModel)]="showOptions" (click)="toggleOptions()" />
                 Afegir
             </label>
         </div>
     </div>
     <div *ngIf="showOptions" class="options-box">
         <div class="pages options-info">
-            Quantitat de pagines:
+           {{data.options[0]}}
             <div class="input-buttons">
                 <button class="buttons" (click)="decrementPage()">-</button>
                 <input type="number" class="input-number" [(ngModel)]="pagesNumber" />
@@ -27,7 +27,7 @@
 
         </div>
         <div class="languages options-info">
-            Quantitat de idiomes:
+            {{data.options[1]}}
             <div class="input-buttons">
                 <button class="buttons" (click)="decrementLanguage()">-</button>
                 <input type="number" class="input-number" [(ngModel)]="languageNumber" />
@@ -35,4 +35,7 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <div *ngFor="let data of data.lenght"></div>
 </div>

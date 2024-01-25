@@ -17,6 +17,9 @@ export class ProductOptionsComponent {
   @Input() data: any;
 
   showOptions: boolean = false;
+
+  servicePrice: number = 0;
+
   pagesNumber: number = 0;
   languageNumber: number = 0;
   extraService: number = 30;
@@ -51,18 +54,11 @@ export class ProductOptionsComponent {
     this.cdr.detectChanges(); // Actualiza la vista después de cambiar el número
     this.totalBudget()
   }
-
-  // totalBudget(){
-  //  let totalBudget:number = this.pagesNumber * this.languageNumber * this.extraService;
-  //  console.log(totalBudget);
-  //  return totalBudget;
-  // }
-
   
   totalBudget(): void {
-    this.budgetService.calculateTotalBudget(this.pagesNumber, this.languageNumber, this.extraService);
-    let totalBudget:number = this.pagesNumber * this.languageNumber * this.extraService; //para ver si funciona
-    console.log(totalBudget)
+    //this.budgetService.calculateTotalBudget(this.pagesNumber, this.languageNumber, this.extraService);
+    this.budgetService.calculateTotalBudget(this.servicePrice, this.pagesNumber, this.languageNumber, this.extraService);
+
   }
 
 
