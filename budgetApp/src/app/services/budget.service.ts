@@ -19,7 +19,7 @@ export class BudgetService {
     let i: number = 0;
 
     for (let serviceOffered of servicesOffered) {
-      if (serviceOffered.selected) {
+      if (serviceOffered.checked) {
         let serviceOfferedPrice = serviceOffered.price;
         total += serviceOfferedPrice;
         i++

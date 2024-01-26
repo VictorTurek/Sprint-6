@@ -9,6 +9,7 @@ import { serviceType } from '../../types/serviceType';
 
 
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -22,6 +23,10 @@ export class HomeComponent implements OnInit{
   objects: serviceType[] = [];
 
   constructor(private budgetService: BudgetService, private servicesOfferedService: ServicesOfferedService) {}
+
+  handleBudgetUpdate(updatedBudget: number) {
+    this.totalBudget = updatedBudget;
+  }
 
   ngOnInit(): void {
     this.objects = this.servicesOfferedService.servicesOffered;

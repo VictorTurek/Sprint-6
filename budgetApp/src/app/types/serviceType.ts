@@ -3,8 +3,8 @@ export type serviceType = {
   title: string,
   description: string,
   price: number,
+  checked: boolean;  // Propiedad para rastrear si el servicio está seleccionado
   options?: AdditionalOption[]; 
-  selected?: boolean;  // Nueva propiedad para rastrear si el servicio está seleccionado
 }
 
 export type AdditionalOption = {
