@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit{
   constructor(private budgetService: BudgetService, private servicesOfferedService: ServicesOfferedService) {}
 
   ngOnInit(): void {
-    this.objects = this.servicesOfferedService.objects;
+    this.objects = this.servicesOfferedService.servicesOffered;
 
     this.budgetService.getTotalBudget().subscribe((newTotalBudget) => {
       this.totalBudget = newTotalBudget;

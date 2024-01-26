@@ -1,12 +1,12 @@
 <div class="card">
     <div class="card-services">
         <div class="card-info">
-            <h3>{{ data.title }}</h3>
-            <p>{{ data.description }}</p>
+            <h3>{{ servicesOffered.title }}</h3>
+            <p>{{ servicesOffered.description }}</p>
         </div>
         <div class="price-checkbox">
             <div class="card-price">
-                <p>{{ data.price }}€</p>
+                <p>{{ servicesOffered.price }}€</p>
             </div>
         </div>
         <div class="card-checkbox">
@@ -16,23 +16,20 @@
             </label>
         </div>
     </div>
-    <div *ngIf="showOptions" class="options-box">
-        <div class="pages options-info">
-           {{data.options[0]}}
-            <div class="input-buttons">
-                <button class="buttons" (click)="decrementPage()">-</button>
-                <input type="number" class="input-number" [(ngModel)]="pagesNumber" />
-                <button class="buttons" (click)="incrementPage()">+</button>
-            </div>
 
+   
+    <div *ngIf="showOptions" class="options-box">
+
+         <!-- Blucle por cada extra. -->
+        <div *ngFor="let option of servicesOffered.options" class="options-info">
+          {{ option.extra }}
+          <div class="input-buttons">
+            <button class="buttons" (click)="decrementOption(option)">-</button>
+            <input type="number" class="input-number" [(ngModel)]="optionNumbers[option.extra]" />
+            <button class="buttons" (click)="incrementOption(option)">+</button>
+          </div>
         </div>
-        <div class="languages options-info">
-            {{data.options[1]}}
-            <div class="input-buttons">
-                <button class="buttons" (click)="decrementLanguage()">-</button>
-                <input type="number" class="input-number" [(ngModel)]="languageNumber" />
-                <button class="buttons" (click)="incrementLanguage()">+</button>
-            </div>
-        </div>
-    </div>
+        
+      </div>
+
 </div>

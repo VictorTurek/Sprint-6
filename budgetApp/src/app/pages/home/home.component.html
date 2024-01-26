@@ -2,7 +2,7 @@
 <!-- llamo al header: -->
 
 <div class="cards-container">
-    <app-product-options *ngFor="let object of objects" [data]="object" />
+    <app-product-options *ngFor="let object of objects" [servicesOffered]="object" />
 </div>
 <div class="totalBudget">
     <h3>Preu Pressupostat: {{totalBudget}}</h3>

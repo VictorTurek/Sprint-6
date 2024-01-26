@@ -14,11 +14,9 @@ import { BudgetService } from '../../services/budget.service';
   styleUrl: './product-options.component.sass'
 })
 export class ProductOptionsComponent {
-  @Input() data: any;
+  @Input() servicesOffered: any;
 
   showOptions: boolean = false;
-
-  servicePrice: number = 0;
 
   pagesNumber: number = 0;
   languageNumber: number = 0;
@@ -27,11 +25,15 @@ export class ProductOptionsComponent {
   toggleOptions() {
     // Toggle the visibility of options when the checkbox is clicked
     this.showOptions = !this.showOptions;
-    this.data.selected = !this.data.selected;  // Toggle the selected state
+    this.servicesOffered.selected = !this.servicesOffered.selected;  // Toggle the selected state
     this.totalBudget();
   }
 
   constructor(private cdr: ChangeDetectorRef, private budgetService: BudgetService) { }
+
+
+  //crear un bucle. si hay un objeto, y el objeto tiene opciones, crear un boton - y + para cada opcion de ese objeto.
+
 
   decrementLanguage() {
     this.languageNumber--;
@@ -58,10 +60,26 @@ export class ProductOptionsComponent {
   }
 
   totalBudget(): void {
-    //this.budgetService.calculateTotalBudget(this.pagesNumber, this.languageNumber, this.extraService);
-    this.budgetService.calculateTotalBudget([this.data], this.pagesNumber, this.languageNumber, this.extraService);
-    console.log("data" + this.servicePrice + "pages" + this.pagesNumber + "laguages" + this.languageNumber + "extra service" + this.extraService )
+    this.budgetService.calculateTotalBudget([this.servicesOffered], this.pagesNumber, this.languageNumber, this.extraService);
+    //console.log(" Pages: " + this.pagesNumber + " Laguages: " + this.languageNumber + " Extra Service: " + this.extraService )
   }
 
 
+
+
+
+
+  optionNumbers: { [key: string]: number } = {};
+
+
+  decrementOption(option: any) {
+    this.optionNumbers[option.extra] = (this.optionNumbers[option.extra] || 0) - 1;
+  }
+  
+  incrementOption(option: any) {
+    this.optionNumbers[option.extra] = (this.optionNumbers[option.extra] || 0) + 1;
+  }
+  getOptionNumber(option: any): number {
+    return this.optionNumbers[option.extra] || 0;
+  }
 }
