@@ -27,6 +27,8 @@ export class ProductOptionsComponent {
   toggleOptions() {
     // Toggle the visibility of options when the checkbox is clicked
     this.showOptions = !this.showOptions;
+    this.data.selected = !this.data.selected;  // Toggle the selected state
+    this.totalBudget();
   }
 
   constructor(private cdr: ChangeDetectorRef, private budgetService: BudgetService) { }
@@ -54,11 +56,11 @@ export class ProductOptionsComponent {
     this.cdr.detectChanges(); // Actualiza la vista después de cambiar el número
     this.totalBudget()
   }
-  
+
   totalBudget(): void {
     //this.budgetService.calculateTotalBudget(this.pagesNumber, this.languageNumber, this.extraService);
-    this.budgetService.calculateTotalBudget(this.servicePrice, this.pagesNumber, this.languageNumber, this.extraService);
-
+    this.budgetService.calculateTotalBudget([this.data], this.pagesNumber, this.languageNumber, this.extraService);
+    console.log("data" + this.servicePrice + "pages" + this.pagesNumber + "laguages" + this.languageNumber + "extra service" + this.extraService )
   }
 
 
