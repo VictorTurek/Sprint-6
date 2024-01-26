@@ -22,11 +22,11 @@ export class BudgetService {
   calculateTotalBudget(services: serviceType[], pagesNumber: number, languageNumber: number, extraService: number): number {
     let total = extraService;
 
-    for (const service of services) {
-      if (service.selected) {
-        total += service.price;
-      }
-    }
+    // for (const service of services) {
+    //   if (service.selected) {
+    //     total += service.price;
+    //   }
+    // }
 
     total += this.calculateAdditionalCost(pagesNumber, languageNumber);
 

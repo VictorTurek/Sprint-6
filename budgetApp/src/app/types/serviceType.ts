@@ -4,4 +4,5 @@ export type serviceType = {
   description: string,
   price: number,
   options: string[],
+  selected?: boolean;  // Nueva propiedad para rastrear si el servicio está seleccionado
 }
