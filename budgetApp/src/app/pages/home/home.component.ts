@@ -8,8 +8,6 @@ import { ServicesOfferedService } from '../../services/services-offered.service'
 import { serviceType } from '../../types/serviceType';
 
 
-
-
 @Component({
   selector: 'app-home',
   standalone: true,

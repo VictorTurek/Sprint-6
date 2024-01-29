@@ -22,7 +22,9 @@ export class ProductOptionsComponent implements OnInit {
 
   showOptions: boolean = false;
 
-  selectedServices: any[] = [];
+  servicesAvailable: any[] = [];
+  chosenServices: any[] = [];
+
 
   optionNumbers: { [key: string]: number } = {};
 
@@ -31,48 +33,34 @@ export class ProductOptionsComponent implements OnInit {
 
 
   ngOnInit() {
+    // Inicializar selectedServices con los servicios ofrecidos del servicio
+    this.servicesAvailable = this.servicesOfferedService.getServicesOffered();
   }
 
   toggleOptions() {
-    this.showOptions = !this.showOptions;
+
     this.servicesOffered.checked = !this.servicesOffered.checked;
-
-    // Crear una copia independiente de selectedServices
-    const updatedServices = [...this.selectedServices];
-
-    // Buscar el índice del servicio actual en la copia
-    const index = updatedServices.findIndex(service => service.id === this.servicesOffered.id);
-
-    // Crear una copia independiente del servicio actual
-    const updatedService = { ...this.servicesOffered };
-
-    // Si el servicio se marca y no está en la copia, lo agregamos
-    if (this.servicesOffered.checked && index === -1) {
-        updatedServices.push(updatedService);
-    }
-
-    // Si el servicio se desmarca, lo eliminamos de la copia
-    if (!this.servicesOffered.checked && index !== -1) {
-        updatedServices.splice(index, 1);
-    }
-
-    // Actualizamos selectedServices con la copia actualizada
-    this.selectedServices = updatedServices;
-
-    console.log(this.selectedServices)
+    // Actualizamos el estado 'checked' en selectedServices si el servicio está presente
+    let index = this.servicesAvailable.findIndex(service => service.id === this.servicesOffered.id);
+    //console.log("index of the object in the array: " + index)
+    console.log("servicesAvailable", this.servicesAvailable)
 
     this.calcularPresupuesto();
-}
+  }
+
+
 
   decrementOption(option: any) {
     this.optionNumbers[option.extra] = (this.optionNumbers[option.extra] || 0) - 1;
     this.calcularPresupuesto()
+    console.log("servicesAvailable", this.servicesAvailable)
 
   }
 
   incrementOption(option: any) {
     this.optionNumbers[option.extra] = (this.optionNumbers[option.extra] || 0) + 1;
     this.calcularPresupuesto()
+    console.log("servicesAvailable", this.servicesAvailable)
 
   }
 
@@ -83,16 +71,28 @@ export class ProductOptionsComponent implements OnInit {
 
   calcularPresupuesto() {
     let presupuestoTotal = 0;
+    //console.log(this.servicesAvailable)
 
-    for (const service of this.selectedServices) {     // Recorre los servicios seleccionados
-      presupuestoTotal += service.price;       // Suma el precio base del servicio
+    for (let i = 0; i < this.servicesAvailable.length; i++) {
+      if (this.servicesAvailable[i].checked) {
+        presupuestoTotal += this.servicesAvailable[i].price;       // Suma el precio base del servicio
 
-      for (const option of service.options) {       // Recorre las opciones del servicio
-        if (option.selected) {         // Verifica si la opción está seleccionada (por ejemplo, mediante un checkbox)
-          presupuestoTotal += option.price * option.quantity;           // Suma el precio de la opción multiplicado por la cantidad indicada
-        }
       }
+      
     }
+
+    // for (let service of this.servicesAvailable) { // Recorre los servicios seleccionados
+    //       if (this.servicesAvailable[1].checked) {
+    //         presupuestoTotal += service.price;       // Suma el precio base del servicio
+
+    //       }
+
+    //   for (const option of service.options) {       // Recorre las opciones del servicio
+    //     if (option.selected) {         // Verifica si la opción está seleccionada (por ejemplo, mediante un checkbox)
+    //       presupuestoTotal += option.price * option.quantity;           // Suma el precio de la opción multiplicado por la cantidad indicada
+    //     }
+    //   }
+    // }
     console.log('Presupuesto total:', presupuestoTotal); // Imprime el presupuesto total
 
     this.budgetUpdated.emit(presupuestoTotal); //emite el presupuesto total
