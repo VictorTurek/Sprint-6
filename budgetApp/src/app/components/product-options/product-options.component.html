@@ -19,13 +19,12 @@
 
    
     <div *ngIf="showOptions" class="options-box">
-
          <!-- Blucle por cada extra. -->
         <div *ngFor="let option of servicesOffered.options" class="options-info">
           {{ option.extra }}
           <div class="input-buttons">
             <button class="buttons" (click)="decrementOption(option)">-</button>
-            <input type="number" class="input-number" [(ngModel)]="optionNumbers[option.extra]" />
+            <input type="number" class="input-number" [(ngModel)]="optionNumbers[option.optionId]" />
             <button class="buttons" (click)="incrementOption(option)">+</button>
           </div>
         </div>

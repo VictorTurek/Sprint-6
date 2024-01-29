@@ -8,6 +8,7 @@ export type serviceType = {
 }
 
 export type AdditionalOption = {
+  optionId: number;
   extra: string;
   price: number;
   quantity: number, 
