@@ -19,9 +19,7 @@ export class ProductOptionsComponent implements OnInit {
   @Output() budgetUpdated = new EventEmitter<number>();
 
   showOptions: boolean = false;
-
   servicesAvailable: serviceType[] = [];
-
   optionNumbers: { [key: string]: number } = {};
 
   constructor(private servicesOfferedService: ServicesOfferedService) { }
@@ -37,14 +35,16 @@ export class ProductOptionsComponent implements OnInit {
     this.calcularPresupuesto();
   }
 
+  showPopup(option: any): void {
+    // Lógica para mostrar el mensaje en el popup.
+    alert(`${option.extra}\n${option.extraDescription} ${option.price} euros`);
+ }
 
   incrementOption(option: any) {
     option.quantity += 1;
     this.optionNumbers[option.optionId] = option.quantity;
     this.calcularPresupuesto()
   }
-
-
 
   decrementOption(option: any) {
     if (option.quantity > 0) {
