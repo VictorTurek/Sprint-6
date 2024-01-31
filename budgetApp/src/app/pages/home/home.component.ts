@@ -34,9 +34,9 @@ export class HomeComponent implements OnInit {
     this.userForm = this.fb.group({
       Nom: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[^\d]+$/)]],
       Telefon: ['', [Validators.required, Validators.pattern(/^\+?\d{9,}$/)]],
-      Email: ['', [Validators.required, Validators.email]],    
+      Email: ['', [Validators.required, Validators.email]],
     });
-   }
+  }
 
   ngOnInit(): void {
     this.servicesAvailable = this.servicesOfferedService.getServicesOffered();
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   showBudgetRequest() { // la funcion comprueba si hay algun checkbox marcado, y en ese caso, muetsra el div para solicitar presupuesto.
-    this.showOptions = false 
+    this.showOptions = false
     for (let i = 0; i < this.servicesAvailable.length; i++) {
       if (this.servicesAvailable[i].checked) {
         this.showOptions = true
@@ -60,25 +60,24 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  submitBudget(){
+  submitBudget() {
     if (this.userForm.valid) {
-      // El formulario es válido, puedes enviar la solicitud del presupuesto aquí
-      // Puedes acceder a los valores del formulario usando this.userForm.value
-      console.log('Formulario válido. Enviando solicitud de presupuesto:', this.userForm.value);
-  
+
+      alert('Formulario válido. Enviando solicitud de presupuesto');
+
       // Puedes agregar lógica adicional aquí, como enviar la solicitud al servidor
-  
-      // Reinicia el formulario después de enviar
-      this.userForm.reset();
+      this.budgetList()
+
+      this.userForm.reset();  // Reinicia el formulario después de enviar
     } else {
-      // El formulario no es válido, muestra mensajes de error si es necesario
-      console.log('Formulario no válido. Por favor, corrige los errores.');
-      
-      // Puedes marcar los campos del formulario como tocados para mostrar los mensajes de error
       Object.values(this.userForm.controls).forEach(control => {
         control.markAsTouched();
       });
     }
+  }
+
+  budgetList(){
+
   }
 
 
