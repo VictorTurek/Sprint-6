@@ -18,6 +18,7 @@ export class ProductOptionsComponent implements OnInit {
   @Input() servicesOffered: any;
   @Output() budgetUpdated = new EventEmitter<number>();
 
+
   showOptions: boolean = false;
   servicesAvailable: serviceType[] = [];
   optionNumbers: { [key: string]: number } = {};
@@ -30,14 +31,14 @@ export class ProductOptionsComponent implements OnInit {
   }
 
   toggleOptions() {
+    this.showOptions = !this.showOptions;
     this.servicesOffered.checked = !this.servicesOffered.checked;  // Actualizamos el estado 'checked' en selectedServices si el servicio está presente
-    let index = this.servicesAvailable.findIndex(service => service.id === this.servicesOffered.id);
     this.calcularPresupuesto();
   }
 
   showPopup(option: any): void {
-    // Lógica para mostrar el mensaje en el popup.
-    alert(`${option.extra}\n${option.extraDescription} ${option.price} euros`);
+    alert(`${option.extra}\n${option.extraDescription} ${option.price} euros`);     // Lógica para mostrar el mensaje en el popup.
+
  }
 
   incrementOption(option: any) {

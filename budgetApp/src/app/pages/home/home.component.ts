@@ -6,32 +6,55 @@ import { CommonModule } from '@angular/common';
 import { BudgetService } from '../../services/budget.service';
 import { ServicesOfferedService } from '../../services/services-offered.service';
 import { serviceType } from '../../types/serviceType';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, ProductOptionsComponent, CurrentBudgetsComponent, CommonModule],
+  imports: [HeaderComponent, ProductOptionsComponent, CurrentBudgetsComponent, CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
 
   totalBudget: number = 0;
-  objects: serviceType[] = [];
+  showOptions: boolean = false;
+  servicesAvailable: serviceType[] = [];
+  user = {
+    Nom: '',
+    Telefon: '',
+    Email: ''
+  };
 
-  constructor(private budgetService: BudgetService, private servicesOfferedService: ServicesOfferedService) {}
-
-  handleBudgetUpdate(updatedBudget: number) {
-    this.totalBudget = updatedBudget;
-  }
+  constructor(private budgetService: BudgetService, private servicesOfferedService: ServicesOfferedService) { }
 
   ngOnInit(): void {
-    this.objects = this.servicesOfferedService.servicesOffered;
+    this.servicesAvailable = this.servicesOfferedService.getServicesOffered();
 
     this.budgetService.getTotalBudget().subscribe((newTotalBudget) => {
       this.totalBudget = newTotalBudget;
     });
   }
+
+  handleBudgetUpdate(updatedBudget: number) {
+    this.totalBudget = updatedBudget;
+
+    this.showBudgetRequest() // aprovecho la funcion para llamar a la funcion showBudgetRequest
+  }
+
+  showBudgetRequest() { // la funcion comprueba si hay algun checkbox marcado, y en ese caso, muetsra el div para solicitar presupuesto.
+    this.showOptions = false 
+    for (let i = 0; i < this.servicesAvailable.length; i++) {
+      if (this.servicesAvailable[i].checked) {
+        this.showOptions = true
+      }
+    }
+  }
+
+
+
+
+
 
 }

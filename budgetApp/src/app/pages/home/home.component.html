@@ -2,10 +2,29 @@
 <!-- llamo al header: -->
 
 <div class="cards-container">
-    <app-product-options *ngFor="let object of objects" [servicesOffered]="object" (budgetUpdated)="handleBudgetUpdate($event)"/>
+    <app-product-options *ngFor="let service of servicesAvailable" [servicesOffered]="service"
+        (budgetUpdated)="handleBudgetUpdate($event)" />
 </div>
 <div class="totalBudget">
     <h3>Preu Pressupostat: {{totalBudget}}</h3>
+</div>
+
+<div *ngIf="showOptions" class="options-box">
+    <div class="budgetBox">
+        <h3 class="budgetTitle">Demanar Pressupost</h3>
+        <div class="budgetForm">
+            <!-- aqui va el formulario para pedir presupuesto -->
+            <form>
+                <input type="text" id="nom" class="formItems" [(ngModel)]="user.Nom" name="nom" placeholder="Nom" required>
+          
+                <input type="tel" id="telefon" class="formItems" [(ngModel)]="user.Telefon" name="telefon" placeholder="Telefon" required>
+          
+                <input type="email" id="email" class="formItems" [(ngModel)]="user.Email" name="email" placeholder="Email" required>
+          
+                <button type="submit" class="submitBudget">Sol·licitar Pressupost</button>
+              </form>
+        </div>
+    </div>
 </div>
 
 <app-current-budgets />
