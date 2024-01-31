@@ -14,3 +14,10 @@ export type AdditionalOption = {
   quantity: number, 
   extraDescription: string;
 };
+
+export type serviceChosen = {
+  name: number,
+  telefon: string,
+  email: string,
+  serviceChosen: serviceType[]; 
+}
