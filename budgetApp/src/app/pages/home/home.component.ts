@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     Email: ''
   };
   userForm: FormGroup;
-
+  submittedBudgets: any[] = [];
 
   constructor(private budgetService: BudgetService, private servicesOfferedService: ServicesOfferedService, private fb: FormBuilder) {
     this.userForm = this.fb.group({
@@ -62,12 +62,9 @@ export class HomeComponent implements OnInit {
 
   submitBudget() {
     if (this.userForm.valid) {
-
       alert('Formulario válido. Enviando solicitud de presupuesto');
-
-      // Puedes agregar lógica adicional aquí, como enviar la solicitud al servidor
-      this.budgetList()
-
+      
+      this.budgetList() //llamamos a la funcion para crear el array de presupuestos.
       this.userForm.reset();  // Reinicia el formulario después de enviar
     } else {
       Object.values(this.userForm.controls).forEach(control => {
@@ -76,8 +73,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  budgetList(){
-
+  budgetList(){ //en esta funcion creamos el array de presupuestos.
+    const submittedBudget = {
+      Nom: this.userForm.get('Nom')?.value,
+      Telefon: this.userForm.get('Telefon')?.value,
+      Email: this.userForm.get('Email')?.value,
+      servicesOffered: this.servicesAvailable.filter(service => service.checked)
+    };
+  
+    this.submittedBudgets.push(submittedBudget);
+    console.log(this.submittedBudgets)
   }
 
 
