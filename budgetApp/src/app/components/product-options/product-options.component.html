@@ -23,7 +23,7 @@
         <div *ngFor="let option of servicesOffered.options" class="options-info">
             <!-- boton de info con popup -->
             <img src="../../../assets/img/icono interrogante.png" alt="icono interrogante" class="popup-button" (click)="showPopup(option)">
-            {{ option.extra }}
+            Quantitat de {{ option.extra }}
             <div class="input-buttons">
                 <button class="buttons" (click)="decrementOption(option)">-</button>
                 <input type="number" class="input-number" [(ngModel)]="optionNumbers[option.optionId]" />

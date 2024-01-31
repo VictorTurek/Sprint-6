@@ -37,7 +37,7 @@ export class ProductOptionsComponent implements OnInit {
   }
 
   showPopup(option: any): void {
-    alert(`${option.extra}\n${option.extraDescription} ${option.price} euros`);     // Lógica para mostrar el mensaje en el popup.
+    alert(`Quantitat de ${option.extra}\n${option.extraDescription} ${option.price} euros`);     // Lógica para mostrar el mensaje en el popup.
 
  }
 

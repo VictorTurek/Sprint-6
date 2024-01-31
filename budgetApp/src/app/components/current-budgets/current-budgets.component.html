@@ -1,2 +1,45 @@
-<p>current-budgets works!</p>
-<p>aqui van los presupuestos guardados.</p>
+<div *ngFor="let budget of submittedBudgets">
+
+    <div class="budgetsList">
+        <div class="budgetRequestContainer">
+            <div class="infoRequest">
+                <div class="contactInfo">Informacio Contacte</div>
+
+                <div class="nameRequest">
+                    {{ budget.Nom }}
+                </div>
+                <div class="emailRequest">
+                    {{ budget.Email }}
+                </div>
+                <div class="telefonRequest">
+                    {{ budget.Telefon }}
+                </div>
+            </div>
+            <div class="servicesRequest">
+                <div class="servicesText">Serveis Contractats</div>
+                <div *ngFor="let service of budget.servicesOffered" class="servicesInfo">
+                    <div class="serviceRequest">
+                        <div class="serviceTitle">
+                            {{ service.title }}
+                        </div>
+                        <!-- Recorre las opciones dentro del mismo *ngFor -->
+                        <div *ngFor="let options of service.options">
+                            <div *ngIf="options.quantity > 0">
+                                <div class="optionsRequest">
+                                    {{ options.extra }} {{ options.quantity }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="priceRequest">
+                <div class="totalRequest">Total</div>
+                <div class="priceRequest">{{ budget.price }} </div>
+            </div>
+
+        </div>
+    </div>
+</div>

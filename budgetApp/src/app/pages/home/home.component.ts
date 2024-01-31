@@ -78,11 +78,12 @@ export class HomeComponent implements OnInit {
       Nom: this.userForm.get('Nom')?.value,
       Telefon: this.userForm.get('Telefon')?.value,
       Email: this.userForm.get('Email')?.value,
-      servicesOffered: this.servicesAvailable.filter(service => service.checked)
+      servicesOffered: this.servicesAvailable.filter(service => service.checked),
+      price: this.totalBudget,
     };
   
     this.submittedBudgets.push(submittedBudget);
-    console.log(this.submittedBudgets)
+    console.log("this.submittedBudgets", this.submittedBudgets)
   }
 
 
