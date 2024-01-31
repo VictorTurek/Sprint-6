@@ -29,15 +29,35 @@
 
         .budgetForm
             display: flex
-            justify-content: space-evenly
+            align-content: center
 
-            .formItems
-                width: 150px
-                margin-right: 20px
-                margin-bottom: 20px
-                padding: 5px
-                //border-radius: 2px
+            .budgetInputs
+                display: flex
+                flex-wrap: wrap
+                align-items: flex-start
 
-            .submitBudget
-                width: 164px
-                padding: 5px
+                .formItems
+                    width: 150px
+                    height: 25px
+                    margin-right: 20px
+                    padding: 5px
+                    border-color: grey
+                    border-radius: 5px
+
+                .error-input
+                    border-color: red
+
+                .valid-input
+                    border-color: green
+
+                .inputError
+                    color: red
+                    margin-top: 10px
+                    margin-bottom: 10px
+
+                .submitBudget
+                    width: 164px
+                    height: 39px
+                    padding: 5px
+                    border-color: grey
+                    border-radius: 5px

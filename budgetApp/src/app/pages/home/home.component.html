@@ -14,15 +14,46 @@
         <h3 class="budgetTitle">Demanar Pressupost</h3>
         <div class="budgetForm">
             <!-- aqui va el formulario para pedir presupuesto -->
-            <form>
-                <input type="text" id="nom" class="formItems" [(ngModel)]="user.Nom" name="nom" placeholder="Nom" required>
-          
-                <input type="tel" id="telefon" class="formItems" [(ngModel)]="user.Telefon" name="telefon" placeholder="Telefon" required>
-          
-                <input type="email" id="email" class="formItems" [(ngModel)]="user.Email" name="email" placeholder="Email" required>
-          
+            <form class="budgetInputs" [formGroup]="userForm" (ngSubmit)="submitBudget()">
+
+                <div class="form-group">
+                    <input type="text" id="nom" class="formItems" formControlName="Nom" placeholder="Nom" [ngClass]="{'error-input': userForm.get('Nom')?.invalid && userForm.get('Nom')?.touched,
+                                        'valid-input': userForm.get('Nom')?.valid && userForm.get('Nom')?.touched}">
+                    <div *ngIf="userForm.get('Nom')?.invalid && userForm.get('Nom')?.touched">
+                        <div *ngIf="userForm.get('Nom')?.hasError('required')" class="inputError">Nom obligatori.</div>
+                        <div *ngIf="userForm.get('Nom')?.hasError('minlength')" class="inputError">Minim
+                            {{userForm.get('Nom')?.getError('minlength')?.requiredLength}} caracters.</div>
+                        <div *ngIf="userForm.get('Nom')?.hasError('pattern')" class="inputError">No pot contenir
+                            números.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" id="telefon" class="formItems" formControlName="Telefon" placeholder="Telèfon"
+                        [ngClass]="{'error-input': userForm.get('Telefon')?.invalid && userForm.get('Telefon')?.touched,
+                                        'valid-input': userForm.get('Telefon')?.valid && userForm.get('Telefon')?.touched}">
+                    <div *ngIf="userForm.get('Telefon')?.invalid && userForm.get('Telefon')?.touched">
+                        <div *ngIf="userForm.get('Telefon')?.hasError('required')" class="inputError">Telefon
+                            obligatori.</div>
+                        <div *ngIf="userForm.get('Telefon')?.hasError('pattern')" class="inputError">Mínim 9 dígits.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" id="email" class="formItems" formControlName="Email" placeholder="Email"
+                        [ngClass]="{'error-input': userForm.get('Email')?.invalid && userForm.get('Email')?.touched,
+                                        'valid-input': userForm.get('Email')?.valid && userForm.get('Email')?.touched}">
+                    <div *ngIf="userForm.get('Email')?.invalid && userForm.get('Email')?.touched">
+                        <div *ngIf="userForm.get('Email')?.hasError('required')" class="inputError">Email obligatori.
+                        </div>
+                        <div *ngIf="userForm.get('Email')?.hasError('email')" class="inputError">Email en format email.
+                        </div>
+                    </div>
+                </div>
+
                 <button type="submit" class="submitBudget">Sol·licitar Pressupost</button>
-              </form>
+            </form>
         </div>
     </div>
 </div>
