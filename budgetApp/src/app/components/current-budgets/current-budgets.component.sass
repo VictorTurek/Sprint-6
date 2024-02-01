@@ -4,6 +4,7 @@
 
 .busdgetsOrder
     display: flex
+    flex-wrap: wrap
     align-items: center
     justify-content: space-between
 
@@ -16,9 +17,27 @@
 
         .clasificators
             display: flex
+            flex-wrap: wrap
 
             .orderInput
                 margin: 10px
+
+                .orderButton
+                    height: 30px
+                    width: 70px
+                    border-radius: 5px
+                    font-weight: bold
+                    border-color: #9b9b9b
+                    border-width: 2px
+                    background-color: #cfcfcf
+
+                .orderButton:hover
+                    border-color: #9b9b9b
+                    background-color: #b9b9b9
+
+                .nameInput
+                    height: 25px
+                    border-radius: 5px
 
 .budgetsList
     display: flex

@@ -1,4 +1,4 @@
-<div *ngIf="submittedBudgets.length > 0">
+<div *ngIf="submittedBudgets.length > -1">
     <div class="separator"></div>
 
     <div class="busdgetsOrder">
@@ -6,20 +6,20 @@
             <h3>Pressupostos en Curs:</h3>
         </div>
         <div class="orderOptions">
-            <div *ngIf="submittedBudgets.length > 1">
+            <div *ngIf="submittedBudgets.length > -1">
 
                 <div class="clasificators">
                     <div class="search orderInput">
-                        <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre">
+                        <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="nameInput">
                     </div>
                     <div class="date orderInput">
-                        <button (click)="toggleSortOrderByDate()">Data {{ ascendingOrderByDate ? '↑' : '↓' }}</button>
+                        <button (click)="toggleSortOrderByDate()" class="orderButton">Data {{ ascendingOrderByDate ? '↑' : '↓' }}</button>
                     </div>
                     <div class="budget orderInput">
-                        <button (click)="toggleSortOrderPrice()">Import {{ ascendingOrder ? '↑' : '↓' }}</button>
+                        <button (click)="toggleSortOrderPrice()" class="orderButton">Import {{ ascendingOrder ? '↑' : '↓' }}</button>
                     </div>
                     <div class="name orderInput">
-                        <button (click)="toggleSortOrderByName()">Nom {{ ascendingOrderByName ? '↑' : '↓' }}</button>
+                        <button (click)="toggleSortOrderByName()" class="orderButton">Nom {{ ascendingOrderByName ? '↑' : '↓' }}</button>
                     </div>
                 </div>
             </div>
