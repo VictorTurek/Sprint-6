@@ -3,7 +3,9 @@ import { HomeComponent } from '../../pages/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServicesOfferedService } from '../../services/services-offered.service';
-import { serviceType} from '../../types/serviceType';
+import { serviceType } from '../../types/serviceType';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 @Component({
@@ -23,28 +25,44 @@ export class ProductOptionsComponent implements OnInit {
   servicesAvailable: serviceType[] = [];
   optionNumbers: { [key: string]: number } = {};
 
-  constructor(private servicesOfferedService: ServicesOfferedService) { }
-
+  constructor(
+    private servicesOfferedService: ServicesOfferedService,
+    private router: Router,
+    private route: ActivatedRoute  // Inyecta ActivatedRoute aquí
+  ) { }
 
   ngOnInit() {    // Inicializar selectedServices con los servicios ofrecidos del servicio
     this.servicesAvailable = this.servicesOfferedService.getServicesOffered();
+
+    this.route.queryParams.subscribe(params => {
+      // Accede a los parámetros de la ruta aquí
+      const webPage = params['WebPage'];
+      const campaingSeo = params['CampaingSeo'];
+      const pages = params['pages'];
+      const lang = params['lang'];
+
+      // Haz algo con los parámetros (por ejemplo, actualiza tu lógica de servicios ofrecidos)
+      // ...
+    });
   }
 
   toggleOptions() {
     this.showOptions = !this.showOptions;
     this.servicesOffered.checked = !this.servicesOffered.checked;  // Actualizamos el estado 'checked' en selectedServices si el servicio está presente
     this.calcularPresupuesto();
+    this.onOptionSelected()
   }
 
   showPopup(option: any): void {
     alert(`Quantitat de ${option.extra}\n${option.extraDescription} ${option.price} euros`);     // Lógica para mostrar el mensaje en el popup.
 
- }
+  }
 
   incrementOption(option: any) {
     option.quantity += 1;
     this.optionNumbers[option.optionId] = option.quantity;
     this.calcularPresupuesto()
+    this.onOptionSelected()
   }
 
   decrementOption(option: any) {
@@ -55,6 +73,7 @@ export class ProductOptionsComponent implements OnInit {
     }
     this.optionNumbers[option.optionId] = option.quantity;
     this.calcularPresupuesto()
+    this.onOptionSelected()
   }
 
   calcularPresupuesto() {
@@ -73,4 +92,42 @@ export class ProductOptionsComponent implements OnInit {
     }
     this.budgetUpdated.emit(presupuestoTotal); //emite el presupuesto total
   }
+
+  onOptionSelected() {
+    console.log(this.servicesAvailable)
+    let url: string = '/home?'
+    let isFirstService = true; // Variable para rastrear si es el primer servicio seleccionado
+
+    for (let service of this.servicesAvailable) { //iteramos sobre los servicios
+      if (service.checked) { //si el servicio esta seleccionado
+        if (!isFirstService) { //si hay mas de un servicio, se anade un "&"
+          url += "&"
+        }
+        url += service.title + "=true"
+        for (let option of service.options) { //iteramos sobre las opciones
+          if (option.quantity > 0) { //si la cantidad es superior a 0
+            url += "&" + option.extra + "=" + option.quantity
+          }
+        }
+        isFirstService = false;
+
+      }
+    }
+    console.log(url)
+
+    // Obtén los valores actuales de los parámetros de la URL
+    const currentParams = { ...this.route.snapshot.queryParams };
+
+    // Modifica o agrega la propiedad del servicio seleccionado
+    // currentParams['selectedService'] = service;
+
+    // Actualiza la URL
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: currentParams,
+      queryParamsHandling: 'merge',
+    });
+  }
+
+
 }
