@@ -74,12 +74,15 @@ export class HomeComponent implements OnInit {
   }
 
   budgetList(){ //en esta funcion creamos el array de presupuestos.
+    let currentDate = new Date();
+
     const submittedBudget = {
       Nom: this.userForm.get('Nom')?.value,
       Telefon: this.userForm.get('Telefon')?.value,
       Email: this.userForm.get('Email')?.value,
       servicesOffered: this.servicesAvailable.filter(service => service.checked),
       price: this.totalBudget,
+      date: currentDate,
     };
   
     this.submittedBudgets.push(submittedBudget);

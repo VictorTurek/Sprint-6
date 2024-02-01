@@ -1,5 +1,33 @@
-<div *ngFor="let budget of submittedBudgets">
+<div *ngIf="submittedBudgets.length > 0">
+    <div class="separator"></div>
 
+    <div class="busdgetsOrder">
+        <div class="pressupostosEnCurs">
+            <h3>Pressupostos en Curs:</h3>
+        </div>
+        <div class="orderOptions">
+            <div *ngIf="submittedBudgets.length > 1">
+
+                <div class="clasificators">
+                    <div class="search orderInput">
+                        <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre">
+                    </div>
+                    <div class="date orderInput">
+                        <button (click)="toggleSortOrderByDate()">Data {{ ascendingOrderByDate ? '↑' : '↓' }}</button>
+                    </div>
+                    <div class="budget orderInput">
+                        <button (click)="toggleSortOrderPrice()">Import {{ ascendingOrder ? '↑' : '↓' }}</button>
+                    </div>
+                    <div class="name orderInput">
+                        <button (click)="toggleSortOrderByName()">Nom {{ ascendingOrderByName ? '↑' : '↓' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let budget of searchByName()">
     <div class="budgetsList">
         <div class="budgetRequestContainer">
             <div class="infoRequest">
