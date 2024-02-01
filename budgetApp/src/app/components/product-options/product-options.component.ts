@@ -50,7 +50,7 @@ export class ProductOptionsComponent implements OnInit {
     this.showOptions = !this.showOptions;
     this.servicesOffered.checked = !this.servicesOffered.checked;  // Actualizamos el estado 'checked' en selectedServices si el servicio está presente
     this.calcularPresupuesto();
-    this.onOptionSelected()
+    this.urlGenerator()
   }
 
   showPopup(option: any): void {
@@ -62,7 +62,7 @@ export class ProductOptionsComponent implements OnInit {
     option.quantity += 1;
     this.optionNumbers[option.optionId] = option.quantity;
     this.calcularPresupuesto()
-    this.onOptionSelected()
+    this.urlGenerator()
   }
 
   decrementOption(option: any) {
@@ -73,7 +73,7 @@ export class ProductOptionsComponent implements OnInit {
     }
     this.optionNumbers[option.optionId] = option.quantity;
     this.calcularPresupuesto()
-    this.onOptionSelected()
+    this.urlGenerator()
   }
 
   calcularPresupuesto() {
@@ -93,7 +93,7 @@ export class ProductOptionsComponent implements OnInit {
     this.budgetUpdated.emit(presupuestoTotal); //emite el presupuesto total
   }
 
-  onOptionSelected() {
+  urlGenerator() {
     console.log(this.servicesAvailable)
     let url: string = '/home?'
     let isFirstService = true; // Variable para rastrear si es el primer servicio seleccionado
@@ -113,20 +113,14 @@ export class ProductOptionsComponent implements OnInit {
 
       }
     }
+    this.urlUpdate(url)    //aqui llamo a una funcion que convierte la url del navegador
+
+
+    
+  }
+
+  urlUpdate(url:string){
     console.log(url)
-
-    // Obtén los valores actuales de los parámetros de la URL
-    const currentParams = { ...this.route.snapshot.queryParams };
-
-    // Modifica o agrega la propiedad del servicio seleccionado
-    // currentParams['selectedService'] = service;
-
-    // Actualiza la URL
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: currentParams,
-      queryParamsHandling: 'merge',
-    });
   }
 
 
