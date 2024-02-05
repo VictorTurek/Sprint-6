@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
 
   submitBudget() {
     if (this.userForm.valid) {
-      alert('Formulario válido. Enviando solicitud de presupuesto');
+      //alert('Formulario válido. Enviando solicitud de presupuesto');
       
       this.budgetList() //llamamos a la funcion para crear el array de presupuestos.
       this.userForm.reset();  // Reinicia el formulario después de enviar

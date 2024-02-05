@@ -13,13 +13,16 @@
                         <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="nameInput">
                     </div>
                     <div class="date orderInput">
-                        <button (click)="toggleSortOrderByDate()" class="orderButton">Data {{ ascendingOrderByDate ? '↑' : '↓' }}</button>
+                        <button (click)="toggleSortOrderByDate()" class="orderButton">Data {{ ascendingOrderByDate ? '↑'
+                            : '↓' }}</button>
                     </div>
                     <div class="budget orderInput">
-                        <button (click)="toggleSortOrderPrice()" class="orderButton">Import {{ ascendingOrder ? '↑' : '↓' }}</button>
+                        <button (click)="toggleSortOrderPrice()" class="orderButton">Import {{ ascendingOrder ? '↑' :
+                            '↓' }}</button>
                     </div>
                     <div class="name orderInput">
-                        <button (click)="toggleSortOrderByName()" class="orderButton">Nom {{ ascendingOrderByName ? '↑' : '↓' }}</button>
+                        <button (click)="toggleSortOrderByName()" class="orderButton">Nom {{ ascendingOrderByName ? '↑'
+                            : '↓' }}</button>
                     </div>
                 </div>
             </div>
@@ -54,7 +57,7 @@
                         <div *ngFor="let options of service.options">
                             <div *ngIf="options.quantity > 0">
                                 <div class="optionsRequest">
-                                    {{ options.extra }} {{ options.quantity }}
+                                    {{ options.extra }} = {{ options.quantity }}
                                 </div>
                             </div>
                         </div>

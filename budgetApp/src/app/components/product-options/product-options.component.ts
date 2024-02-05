@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServicesOfferedService } from '../../services/services-offered.service';
 import { serviceType } from '../../types/serviceType';
-import { ActivatedRoute, Router } from '@angular/router';
-
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-options',
@@ -20,30 +19,32 @@ export class ProductOptionsComponent implements OnInit {
   @Input() servicesOffered: any;
   @Output() budgetUpdated = new EventEmitter<number>();
 
-
+  currentUrl: string = "";
   showOptions: boolean = false;
   servicesAvailable: serviceType[] = [];
   optionNumbers: { [key: string]: number } = {};
+  
 
   constructor(
     private servicesOfferedService: ServicesOfferedService,
-    private router: Router,
-    private route: ActivatedRoute  // Inyecta ActivatedRoute aquí
+    private route: ActivatedRoute,  // Inyecta ActivatedRoute aquí
+    private location: Location
   ) { }
 
   ngOnInit() {    // Inicializar selectedServices con los servicios ofrecidos del servicio
     this.servicesAvailable = this.servicesOfferedService.getServicesOffered();
 
-    this.route.queryParams.subscribe(params => {
-      // Accede a los parámetros de la ruta aquí
-      const webPage = params['WebPage'];
-      const campaingSeo = params['CampaingSeo'];
-      const pages = params['pages'];
-      const lang = params['lang'];
+    let url: string = this.location.path();     // Obtén la URL actual
+    this.currentUrl = url;
+    this.buildBudget(url)
+    
+  }
 
-      // Haz algo con los parámetros (por ejemplo, actualiza tu lógica de servicios ofrecidos)
-      // ...
-    });
+  buildBudget(url: string) { //carga la pagina con los servicios seleccinados segunla url
+    //falta implementar esta function.
+    console.log(url)
+
+ 
   }
 
   toggleOptions() {
@@ -78,7 +79,6 @@ export class ProductOptionsComponent implements OnInit {
 
   calcularPresupuesto() {
     let presupuestoTotal = 0;
-    //console.log("servicesAvailable", this.servicesAvailable)
 
     for (let servicio of this.servicesAvailable) {
       if (servicio.checked) {
@@ -94,13 +94,14 @@ export class ProductOptionsComponent implements OnInit {
   }
 
   urlGenerator() {
-    console.log(this.servicesAvailable)
-    let url: string = '/home?'
+    let url: string = ""
     let isFirstService = true; // Variable para rastrear si es el primer servicio seleccionado
 
     for (let service of this.servicesAvailable) { //iteramos sobre los servicios
       if (service.checked) { //si el servicio esta seleccionado
-        if (!isFirstService) { //si hay mas de un servicio, se anade un "&"
+        if (isFirstService) { //si hay mas de un servicio, se anade un "&"
+          url += "/home?"
+        } else {
           url += "&"
         }
         url += service.title + "=true"
@@ -115,12 +116,15 @@ export class ProductOptionsComponent implements OnInit {
     }
     this.urlUpdate(url)    //aqui llamo a una funcion que convierte la url del navegador
 
-
-    
   }
 
-  urlUpdate(url:string){
-    console.log(url)
+  urlUpdate(url: string) { //esta funcion recibe la cadena de texto que hay que concatenar a la url de la home.
+
+    let currentPath = this.location.path();   // Obtiene la ruta actual
+
+    let updatedUrl = currentPath.split('/home')[0] + url;   // Combina la ruta actual con la nueva cadena de consulta
+
+    this.location.go(updatedUrl);     // Actualiza la URL en el navegador sin recargar la página
   }
 
 
