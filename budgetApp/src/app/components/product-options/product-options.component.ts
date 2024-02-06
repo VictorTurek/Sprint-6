@@ -23,7 +23,8 @@ export class ProductOptionsComponent implements OnInit {
   showOptions: boolean = false;
   servicesAvailable: serviceType[] = [];
   optionNumbers: { [key: string]: number } = {};
-  
+  urlArray = []
+
 
   constructor(
     private servicesOfferedService: ServicesOfferedService,
@@ -36,15 +37,36 @@ export class ProductOptionsComponent implements OnInit {
 
     let url: string = this.location.path();     // Obtén la URL actual
     this.currentUrl = url;
-    this.buildBudget(url)
-    
+    this.readBudget(url)
+
   }
 
-  buildBudget(url: string) { //carga la pagina con los servicios seleccinados segunla url
-    //falta implementar esta function.
-    console.log(url)
+  readBudget(url: string) { //carga la pagina con los servicios seleccinados segunla url
+    //console.log(url)
+    const results: { [key: string]: any }[] = [];
 
- 
+    let cleanedString = url.replace(/^\/home\?/, ''); //Eliminar "/home? " al inicio. Utilizamos ^ para asegurarnos de que "/home?" esté al principio
+    //console.log("cleanedString", cleanedString)
+
+    let components = cleanedString.split('&');    // Separar los componentes en función del símbolo "&"
+
+    for (let component of components) {
+      let options = component.split('+');
+      const resultObj: { [key: string]: any } = {};
+
+      for (const option of options) {
+        const [key, value] = option.split('=');
+        if (key === 'SEO' || key === 'Ads' || key === 'Web') {
+          resultObj[key] = value === 'true';
+        } else {
+          resultObj[key] = parseInt(value);
+        }
+      }
+      results.push(resultObj);
+    }
+    console.log("results", results);
+
+    return results;
   }
 
   toggleOptions() {
@@ -107,7 +129,7 @@ export class ProductOptionsComponent implements OnInit {
         url += service.title + "=true"
         for (let option of service.options) { //iteramos sobre las opciones
           if (option.quantity > 0) { //si la cantidad es superior a 0
-            url += "&" + option.extra + "=" + option.quantity
+            url += "+" + option.extra + "=" + option.quantity
           }
         }
         isFirstService = false;

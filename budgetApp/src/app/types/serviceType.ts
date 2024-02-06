@@ -19,6 +19,7 @@ export type serviceChosen = {
   name: number,
   telefon: string,
   email: string,
+  serviceChosen: serviceType[];
+  price: number,
   date: Date,
-  serviceChosen: serviceType[]; 
 }
