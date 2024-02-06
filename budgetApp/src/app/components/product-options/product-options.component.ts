@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServicesOfferedService } from '../../services/services-offered.service';
 import { serviceType } from '../../types/serviceType';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-product-options',
@@ -28,46 +28,59 @@ export class ProductOptionsComponent implements OnInit {
 
   constructor(
     private servicesOfferedService: ServicesOfferedService,
-    private route: ActivatedRoute,  // Inyecta ActivatedRoute aquí
     private location: Location
-  ) { }
+  ) {}
 
   ngOnInit() {    // Inicializar selectedServices con los servicios ofrecidos del servicio
     this.servicesAvailable = this.servicesOfferedService.getServicesOffered();
 
     let url: string = this.location.path();     // Obtén la URL actual
     this.currentUrl = url;
-    this.readBudget(url)
+    //this.readBudget(url)
 
   }
 
-  readBudget(url: string) { //carga la pagina con los servicios seleccinados segunla url
-    //console.log(url)
-    const results: { [key: string]: any }[] = [];
+  // readBudget(url: string) { //carga la pagina con los servicios seleccinados segun la url
+  //   //console.log(url)
+  //   const urlBudget: { [key: string]: any }[] = [];
 
-    let cleanedString = url.replace(/^\/home\?/, ''); //Eliminar "/home? " al inicio. Utilizamos ^ para asegurarnos de que "/home?" esté al principio
-    //console.log("cleanedString", cleanedString)
+  //   let cleanedString = url.replace(/^\/home\?/, ''); //Eliminar "/home? " al inicio. Utilizamos ^ para asegurarnos de que "/home?" esté al principio
+  //   //console.log("cleanedString", cleanedString)
 
-    let components = cleanedString.split('&');    // Separar los componentes en función del símbolo "&"
+  //   let components = cleanedString.split('&');    // Separar los componentes en función del símbolo "&"
 
-    for (let component of components) {
-      let options = component.split('+');
-      const resultObj: { [key: string]: any } = {};
+  //   for (let component of components) {
+  //     let options = component.split('+');
+  //     const resultObj: { [key: string]: any } = {};
 
-      for (const option of options) {
-        const [key, value] = option.split('=');
-        if (key === 'SEO' || key === 'Ads' || key === 'Web') {
-          resultObj[key] = value === 'true';
-        } else {
-          resultObj[key] = parseInt(value);
-        }
-      }
-      results.push(resultObj);
-    }
-    console.log("results", results);
+  //     for (const option of options) {
+  //       const [key, value] = option.split('=');
+  //       if (key === 'SEO' || key === 'Ads' || key === 'Web') { //esta parte habria que automatizarla para que coincida con 
+  //         resultObj[key] = value === 'true';
+  //       } else {
+  //         resultObj[key] = parseInt(value);
+  //       }
+  //     }
+  //     urlBudget.push(resultObj);
+  //   }
+  //   console.log("urlBudget", urlBudget);
+   
+  //   this.createBudget(urlBudget);
 
-    return results;
-  }
+  //   //return urlBudget;
+  // }
+
+  // createBudget(urlBudget: any){
+  //   for (const service of urlBudget) {
+  //     if (service.SEO === true) {
+  //       this.servicesOffered.checked = true
+  //     }
+      
+  //   }
+  //   console.log("urlBudget", urlBudget);
+  //   console.log("servicesOffered",this.servicesOffered)
+
+  // }
 
   toggleOptions() {
     this.showOptions = !this.showOptions;
